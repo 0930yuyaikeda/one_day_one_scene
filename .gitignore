@@ -18,3 +18,9 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+### my git ignore ###
+/public/animate/*
+/public/bootstrap-5.0.2-dist/*
+/public/jquery/*
+
