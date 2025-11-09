@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\AdminRepository;
+use App\Repository\AdminsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: AdminRepository::class)]
-class Admin
+#[ORM\Entity(repositoryClass: AdminsRepository::class)]
+class Admins
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,24 +43,24 @@ class Admin
     #[ORM\Column]
     private ?bool $valid_flag = null;
 
-    public function getAdminId(): ?int
+    public function getAdminsId(): ?int
     {
         return $this->admin_id;
     }
 
-    public function setAdminId(int $admin_id): static
+    public function setAdminsId(int $admin_id): static
     {
         $this->admin_id = $admin_id;
 
         return $this;
     }
 
-    public function getAdminCode(): ?string
+    public function getAdminsCode(): ?string
     {
         return $this->admin_code;
     }
 
-    public function setAdminCode(string $admin_code): static
+    public function setAdminsCode(string $admin_code): static
     {
         $this->admin_code = $admin_code;
 
@@ -139,24 +139,24 @@ class Admin
         return $this;
     }
 
-    public function getCreatedAdmin(): ?int
+    public function getCreatedAdmins(): ?int
     {
         return $this->created_admin;
     }
 
-    public function setCreatedAdmin(int $created_admin): static
+    public function setCreatedAdmins(int $created_admin): static
     {
         $this->created_admin = $created_admin;
 
         return $this;
     }
 
-    public function getUpdatedAdmin(): ?int
+    public function getUpdatedAdmins(): ?int
     {
         return $this->updated_admin;
     }
 
-    public function setUpdatedAdmin(?int $updated_admin): static
+    public function setUpdatedAdmins(?int $updated_admin): static
     {
         $this->updated_admin = $updated_admin;
 
