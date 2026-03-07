@@ -11,7 +11,7 @@ use App\Entity\Admins;
 use App\Repository\AdminsRepository;
 
 
-class TestController extends AbstractController
+class OneDayOneSceneController extends AbstractController
 {
     public function index(
         AdminsRepository $adminRepository
