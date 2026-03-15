@@ -1,0 +1,105 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        padding: 4rem;
+        max-width: 600px;
+        width: 100%;
+    }
+    .summary-label {
+        color: var(--accent-gold);
+        text-uppercase: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.3rem;
+        margin-bottom: 0.5rem;
+    }
+    .summary-value {
+        font-size: 1.8rem;
+        font-weight: 300;
+        margin-bottom: 2.5rem;
+    }
+    .divider {
+        height: 1px;
+        background: rgba(197, 160, 89, 0.2);
+        margin-bottom: 2.5rem;
+    }
+    .btn-gold {
+        background-color: transparent;
+        color: var(--accent-gold);
+        border: 1px solid var(--accent-gold);
+        letter-spacing: 0.4rem;
+        transition: all 0.4s;
+        padding: 1rem 3rem;
+    }
+    .btn-gold:hover {
+        background-color: var(--accent-gold);
+        color: var(--dark-navy);
+        box-shadow: 0 0 30px rgba(197, 160, 89, 0.3);
+    }
+</style>
+
+<div class="hero-section min-vh-100 d-flex align-items-center justify-content-center py-5">
+    <div class="glass-card shadow-lg text-center">
+        <h2 class="h6 text-uppercase mb-5" style="color: var(--accent-gold); letter-spacing: 0.5rem; opacity: 0.8;">
+            - Prologue -
+        </h2>
+
+        <div class="text-start px-md-4">
+            <div class="summary-label">Player Name</div>
+            <div class="summary-value">Yuya IKEDA</div>
+
+            <div class="summary-label">Selected Shelf</div>
+            <div class="summary-value">ROMANCE</div>
+
+            <p class="small mb-5 italic" style="color: rgba(230, 241, 255, 0.6); line-height: 1.8;">
+                傷の痛みを知らない奴は、他人の傷をあざ笑う。待て、何だろう、あの窓から射してくる光は？
+            </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="mt-2">
+            <p class="small mb-4" style="color: var(--accent-gold); font-style: italic;">
+                舞台の準備は整いました。
+            </p>
+            <a href="" class="btn btn-gold text-uppercase fw-bold">
+                Start
+            </a>
+        </div>
+
+        <div class="mt-5">
+            <a href="" class="text-muted small text-decoration-none" style="opacity: 0.5;">
+                ← 選択し直す
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

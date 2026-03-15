@@ -1,0 +1,86 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif; 
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        border-radius: 2px; 
+        padding: 4rem;
+    }
+    .btn-gold {
+        background-color: transparent;
+        color: var(--accent-gold);
+        border: 1px solid var(--accent-gold);
+        letter-spacing: 0.2rem;
+        transition: all 0.4s;
+    }
+    .btn-gold:hover {
+        background-color: var(--accent-gold);
+        color: var(--dark-navy);
+        box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+    }
+    .title-underline {
+        width: 50px;
+        height: 1px;
+        background: var(--accent-gold);
+        margin: 2rem auto;
+    }
+</style>
+
+<div class="hero-section vh-100 d-flex align-items-center justify-content-center">
+    <div class="container text-center">
+        <div class="glass-card shadow-lg">
+            <span class="text-uppercase small mb-3 d-block" style="color: var(--accent-gold); letter-spacing: 0.5rem;">
+                The Stage is Set
+            </span>
+
+            <h1 class="display-2 fw-light mb-2">
+                One Day One Scene
+            </h1>
+
+            <div class="title-underline"></div>
+
+            <p class="h4 fw-light font-italic mb-5" style="color: rgba(230, 241, 255, 0.7);">
+                Welcome to the world of Shakespeare
+            </p>
+
+            <div class="mt-5">
+                <a href="#" class="btn btn-gold btn-lg px-5 py-3 text-uppercase small">
+                    始める
+                </a>
+            </div>
+
+            <div class="mt-5 pt-4">
+                <p class="small" style="color: rgba(230, 241, 255, 0.5); font-style: italic;">
+                    "All the world's a stage, and all the men and women merely players."
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

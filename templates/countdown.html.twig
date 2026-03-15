@@ -1,0 +1,138 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+        overflow: hidden;
+    }
+    /* 巨大なカウントダウン/ステータス表示 */
+    #main-display {
+        font-size: 15rem;
+        font-weight: 200;
+        color: var(--accent-gold);
+        line-height: 1;
+        transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        text-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+        height: 15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ready-mode {
+        font-size: 6rem !important;
+        letter-spacing: 0.5rem;
+        text-transform: uppercase;
+        text-shadow: 0 0 50px rgba(197, 160, 89, 0.6) !important;
+    }
+    .glass-info-card {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(197, 160, 89, 0.1);
+        padding: 2rem;
+        max-width: 600px;
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+    }
+    /* ボタンのスタイル */
+    .btn-theatrical {
+        letter-spacing: 0.3rem;
+        padding: 1rem 3rem;
+        transition: all 0.5s;
+        text-decoration: none;
+        border: 1px solid var(--accent-gold);
+        background: transparent;
+        color: var(--accent-gold);
+        pointer-events: none; /* カウント中はクリック不可 */
+        opacity: 0.5;
+    }
+    .btn-active {
+        pointer-events: auto !important;
+        opacity: 1 !important;
+        background: var(--accent-gold) !important;
+        color: var(--dark-navy) !important;
+        box-shadow: 0 0 30px rgba(197, 160, 89, 0.4);
+        font-weight: bold;
+    }
+</style>
+
+<div class="hero-section min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 text-center">
+    <div id="status-label" class="mb-2 text-uppercase small" style="color: var(--accent-gold); letter-spacing: 0.5rem;">
+        Distributing the Script...
+    </div>
+
+    <div id="main-display">40</div>
+
+    <div class="glass-info-card shadow">
+        <h2 class="h4 mb-2" style="color: var(--accent-gold);">
+            ハムレット
+        </h2>
+        <div class="small text-uppercase mb-3" style="opacity: 0.6; letter-spacing: 0.3rem;">
+            三幕一場
+        </div>
+        <p class="mb-0 small italic" style="color: rgba(230, 241, 255, 0.7); line-height: 1.6;">
+            どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。眠れば、心の痛みにも、肉体が受け継ぐ無数の苦しみにもケリがつく。
+        </p>
+    </div>
+
+    <div>
+        <a href="#" id="action-button" class="btn btn-theatrical text-uppercase">
+            PLEASE WAIT
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let timeLeft = 40;
+    const display = document.getElementById('main-display');
+    const button = document.getElementById('action-button');
+    const statusLabel = document.getElementById('status-label');
+
+    const timer = setInterval(() => {
+        timeLeft--;
+        if (timeLeft >= 0) {
+            display.textContent = timeLeft;
+        }
+
+        if (timeLeft <= 5 && timeLeft > 0) {
+            display.style.color = '#e74c3c';
+        }
+
+        if (timeLeft === 0) {
+            clearInterval(timer);
+            // 終了時の演出
+            display.textContent = 'Ready to play';
+            display.classList.add('ready-mode');
+            statusLabel.textContent = 'The Curtain Rises';
+            
+            // ボタンの切り替え
+            button.textContent = 'Play now';
+            button.classList.add('btn-active');
+            button.href = '/play-scene'; // 次のシーンへのパスを設定しろよ
+        }
+    }, 1000);
+});
+</script>
+
+
+{% endblock %}

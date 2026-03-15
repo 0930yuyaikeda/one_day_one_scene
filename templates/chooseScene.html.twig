@@ -1,0 +1,128 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+    }
+    .scene-grid {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .scene-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        padding: 2.5rem;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+    .scene-card:hover {
+        background: rgba(197, 160, 89, 0.1);
+        border-color: var(--accent-gold);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+    .scene-card::before {
+        content: "SELECT SCENE";
+        position: absolute;
+        top: 10px; right: -30px;
+        background: var(--accent-gold);
+        color: var(--dark-navy);
+        font-size: 0.6rem;
+        font-weight: bold;
+        padding: 5px 40px;
+        transform: rotate(45deg);
+        opacity: 0;
+        transition: 0.3s;
+    }
+    .scene-card:hover::before { opacity: 1; }
+
+    .scene-title {
+        color: var(--accent-gold);
+        letter-spacing: 0.2rem;
+        font-size: 1.4rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        padding-bottom: 1rem;
+    }
+    .scene-desc {
+        line-height: 1.8;
+        color: rgba(230, 241, 255, 0.7);
+        font-size: 0.95rem;
+        text-align: justify;
+    }
+</style>
+
+<div class="hero-section min-vh-100 py-5">
+    <div class="container text-center">
+        <p class="text-uppercase small mb-2" style="color: var(--accent-gold); letter-spacing: 0.5rem; opacity: 0.7;">
+            - Act Your Part -
+        </p>
+        <h2 class="display-5 fw-light mb-5"> ハムレット として、どの場面に立ちますか？</h2>
+
+        <div class="row g-4 scene-grid justify-content-center">
+            {# {% for scene in scenes %} #}
+            <div class="col-md-6">
+                <a href="#" class="scene-card shadow-sm">
+                    <h3 class="scene-title">三幕一場「広場での決闘」</h3>
+                    <p class="scene-desc">
+                        どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。
+                    </p>
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <a href="#" class="scene-card shadow-sm">
+                    <h3 class="scene-title">三幕一場「広場での決闘」</h3>
+                    <p class="scene-desc">
+                        どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。
+                    </p>
+                </a>
+            </div>
+            
+            <div class="col-md-6">
+                <a href="#" class="scene-card shadow-sm">
+                    <h3 class="scene-title">三幕一場「広場での決闘」</h3>
+                    <p class="scene-desc">
+                        どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。
+                    </p>
+                </a>
+            </div>
+            {# {% endfor %} #}
+        </div>
+
+        <div class="mt-5">
+            <a href="" class="text-muted small text-decoration-none" style="opacity: 0.5;">
+                ← 診断結果に戻る
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -1,0 +1,165 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+    }
+    /* プログレスバーのカスタマイズ */
+    .progress-container {
+        width: 100%;
+        max-width: 800px;
+        height: 2px;
+        background: rgba(197, 160, 89, 0.1);
+        margin-bottom: 4rem;
+        position: relative;
+    }
+    #progress-bar {
+        height: 100%;
+        background: var(--accent-gold);
+        width: 0%;
+        transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 10px var(--accent-gold);
+    }
+    .question-card {
+        max-width: 800px;
+        width: 100%;
+        min-height: 450px;
+    }
+    .choice-btn {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        color: var(--text-silver);
+        padding: 1.2rem 2rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s;
+        text-align: left;
+        display: block;
+        width: 100%;
+        cursor: pointer;
+    }
+    .choice-btn:hover {
+        background: rgba(197, 160, 89, 0.1);
+        border-color: var(--accent-gold);
+        transform: translateX(10px);
+        color: var(--accent-gold);
+    }
+    .hidden { display: none !important; }
+</style>
+
+<div class="hero-section min-vh-100 d-flex flex-column align-items-center justify-content-center py-5">
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+        <div id="scene-counter" class="text-uppercase small mt-3 text-center" style="color: var(--accent-gold); letter-spacing: 0.3rem;">
+            Scene 1 / 10
+        </div>
+    </div>
+
+    <div id="question-area" class="question-card text-center">
+        <h2 id="question-title" class="h6 text-uppercase mb-4" style="color: var(--accent-gold); opacity: 0.7;">Question 1</h2>
+        <div id="question-text" class="display-6 fw-light mb-5" style="line-height: 1.5; border-left: 2px solid var(--accent-gold); padding-left: 2rem; text-align: left;">
+            ここに質問文が表示されます。
+        </div>
+
+        <div id="choices-container" class="mt-5">
+            </div>
+    </div>
+
+    <div id="finish-area" class="question-card text-center hidden">
+        <h2 class="display-4 fw-light mb-4">お疲れ様でした。</h2>
+        <p class="lead mb-5" style="color: rgba(230, 241, 255, 0.6); font-style: italic;">
+            "The rest is silence." - あなたの魂の配役が決まりました。
+        </p>
+        <a href="#" class="btn btn-outline-warning btn-lg px-5 py-3 text-uppercase" style="color: var(--accent-gold); border-color: var(--accent-gold); letter-spacing: 0.2rem;">
+            結果を見る
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const questions = Array.from({ length: 10 }, (_, i) => ({
+        id: i + 1,
+        title: `Question ${i + 1}`,
+        text: `これは第 ${i + 1} 問目のサンプル質問です。あなたの知性は、この劇的な問いにどう答えますか？`,
+        choices: [
+            "運命に従い、静かに受け入れる",
+            "知略を尽くし、状況を打破する",
+            "情熱のままに、愛に身を投じる",
+            "沈黙を守り、機が熟すのを待つ"
+        ]
+    }));
+
+    let currentIndex = 0;
+
+    const progressBar = document.getElementById('progress-bar');
+    const sceneCounter = document.getElementById('scene-counter');
+    const questionText = document.getElementById('question-text');
+    const questionTitle = document.getElementById('question-title');
+    const choicesContainer = document.getElementById('choices-container');
+    const questionArea = document.getElementById('question-area');
+    const finishArea = document.getElementById('finish-area');
+
+    function updateQuestion() {
+        if (currentIndex >= questions.length) {
+            showFinish();
+            return;
+        }
+
+        const q = questions[currentIndex];
+        
+        // 進捗更新
+        const progress = ((currentIndex + 1) / questions.length) * 100;
+        progressBar.style.width = `${progress}%`;
+        sceneCounter.textContent = `Scene ${currentIndex + 1} / ${questions.length}`;
+
+        // テキスト更新
+        questionTitle.textContent = q.title;
+        questionText.textContent = q.text;
+
+        // 選択肢生成
+        choicesContainer.innerHTML = '';
+        q.choices.forEach((choice, index) => {
+            const btn = document.createElement('div');
+            btn.className = 'choice-btn';
+            btn.innerHTML = `<span style="opacity:0.5; margin-right:1rem;">${index + 1}.</span> ${choice}`;
+            btn.onclick = () => {
+                currentIndex++;
+                updateQuestion();
+            };
+            choicesContainer.appendChild(btn);
+        });
+    }
+
+    function showFinish() {
+        questionArea.classList.add('hidden');
+        finishArea.classList.remove('hidden');
+        progressBar.style.width = '100%';
+        sceneCounter.textContent = 'Curtain Call';
+    }
+
+    updateQuestion();
+});
+</script>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

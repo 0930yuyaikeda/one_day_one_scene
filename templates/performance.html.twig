@@ -1,0 +1,182 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-bg: #02050a;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .theater-bg {
+        background: var(--dark-bg);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+        overflow: hidden;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding-top: 8vh;
+    }
+    .char-image-container {
+        width: 200px;
+        height: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 4rem;
+        border: 1px solid rgba(197, 160, 89, 0.3);
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        transform: scale(0.9);
+    }
+    .char-image-active {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 50px rgba(197, 160, 89, 0.4);
+    }
+    .char-image { width: 100%; height: 100%; object-fit: cover; filter: sepia(30%); }
+    
+    .script-container { width: 100%; perspective: 1000px; }
+    .line-box {
+        transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity: 0;
+        transform: translateY(30px);
+        margin: 3rem 0;
+        text-align: center;
+    }
+    .line-active { opacity: 1; transform: translateY(0); color: var(--accent-gold); }
+    .line-past { opacity: 0.1; transform: translateY(-30px); filter: blur(2px); }
+
+    /* 終演（Fin）のスタイル */
+    #fin-display {
+        display: none;
+        font-size: 5rem;
+        letter-spacing: 2rem;
+        color: var(--accent-gold);
+        text-transform: uppercase;
+        opacity: 0;
+        transition: opacity 2s ease-in;
+        margin-top: 2rem;
+    }
+
+    .hidden { display: none !important; }
+</style>
+
+<div class="theater-bg p-4">
+    <div class="performance-stage text-center">
+        <div id="char-image-stage" class="char-image-container ">
+            <img id="char-image" src="{{ asset('img/sample.png') }}" class="char-image">
+        </div>
+
+        <div id="script-stage" class="script-container"></div>
+
+        <div id="fin-display">終演</div>
+    </div>
+
+    <div class="fixed-bottom p-5 text-center">
+        <button id="next-trigger" class="btn btn-outline-warning text-uppercase" style="letter-spacing: 0.2rem;">
+            Next Line
+        </button>
+        <a href="" id="next-step-btn" class="btn btn-gold px-5 py-3 text-uppercase hidden" style="letter-spacing: 0.4rem;">
+            Next
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // サンプルデータ
+    const lines = [
+        { speaker: 'Romeo', text: 'あそこは東、ジュリエットは太陽だ！', image: '{{ asset('img/sample.png') }}' },
+        { speaker: 'Juliet', text: 'なぜあなたはロミオなの？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'なぜあなたはロミオ？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'なぜあなたは？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'あなたはロミオなの？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'なぜ？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'あなたはロミオなの？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'ロミオなの？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'あなたはロミオなの？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'なぜ？', image: '{{ asset('img/sample2.png') }}' },
+        { speaker: 'Juliet', text: 'あなたは？', image: '{{ asset('img/sample2.png') }}' }
+    ];
+
+    let currentLine = 0;
+    const stage = document.getElementById('script-stage');
+    const imageStage = document.getElementById('char-image-stage');
+    const charImage = document.getElementById('char-image');
+    const trigger = document.getElementById('next-trigger');
+    const finDisplay = document.getElementById('fin-display');
+    const nextBtn = document.getElementById('next-step-btn');
+
+    function renderLine(index) {
+        if (index >= lines.length) {
+            // 全ての台詞が終了した時の処理
+            trigger.classList.add('hidden');
+            imageStage.classList.remove('char-image-active');
+            
+            // 最後の台詞も消す
+            const lastLines = stage.querySelectorAll('.line-box');
+            lastLines.forEach(el => el.classList.add('line-past'));
+
+            // 終演を表示
+            setTimeout(() => {
+                stage.classList.add('hidden');
+                finDisplay.style.display = 'block';
+                setTimeout(() => {
+                    finDisplay.style.opacity = '1';
+                    nextBtn.classList.remove('hidden');
+                }, 100);
+            }, 1000);
+            return;
+        }
+
+        const lineData = lines[index];
+        
+        // 画像更新
+        imageStage.classList.remove('char-image-active');
+        charImage.src = lineData.image;
+        setTimeout(() => imageStage.classList.add('char-image-active'), 100);
+
+        // 台詞更新
+        const oldLines = stage.querySelectorAll('.line-box');
+        oldLines.forEach(el => {
+            el.classList.remove('line-active');
+            el.classList.add('line-past');
+        });
+
+        const lineEl = document.createElement('div');
+        lineEl.className = 'line-box line-active';
+        lineEl.innerHTML = `<span class="small opacity-50 d-block">${lineData.speaker}</span><div class="h2 italic">"${lineData.text}"</div>`;
+        stage.appendChild(lineEl);
+
+        if (stage.children.length > 2) stage.removeChild(stage.firstChild);
+    }
+
+    trigger.addEventListener('click', () => {
+        renderLine(currentLine);
+        currentLine++;
+    });
+
+    renderLine(currentLine);
+    currentLine++;
+});
+</script>
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+{% endblock %}

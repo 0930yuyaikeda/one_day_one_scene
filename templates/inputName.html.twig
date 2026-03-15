@@ -1,0 +1,94 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        padding: 4rem;
+        max-width: 500px;
+        width: 100%;
+    }
+    /* 入力フィールドのカスタマイズ。ここが知性の見せ所だ */
+    .form-control-shakespeare {
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid rgba(197, 160, 89, 0.3);
+        border-radius: 0;
+        color: var(--accent-gold);
+        font-size: 1.5rem;
+        text-align: center;
+        transition: border-color 0.4s;
+    }
+    .form-control-shakespeare:focus {
+        background: transparent;
+        box-shadow: none;
+        color: var(--accent-gold);
+        border-bottom-color: var(--accent-gold);
+    }
+    .form-control-shakespeare::placeholder {
+        color: rgba(197, 160, 89, 0.3);
+        font-style: italic;
+        font-size: 1.2rem;
+    }
+    .btn-gold {
+        background-color: transparent;
+        color: var(--accent-gold);
+        border: 1px solid var(--accent-gold);
+        letter-spacing: 0.2rem;
+        transition: all 0.4s;
+    }
+    .btn-gold:hover {
+        background-color: var(--accent-gold);
+        color: var(--dark-navy);
+    }
+</style>
+
+<div class="hero-section vh-100 d-flex align-items-center justify-content-center">
+    <div class="glass-card shadow-lg text-center">
+        <h2 class="h5 text-uppercase mb-4" style="color: var(--accent-gold); letter-spacing: 0.3rem;">
+            Identify Yourself
+        </h2>
+
+        <form action="#" method="POST">
+            <div class="mb-5">
+                <input type="text" name="guest_name" class="form-control form-control-shakespeare" 
+                    placeholder="Enter your name, player..." required autofocus>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg px-5 py-2 text-uppercase small">
+                物語を始める
+            </button>
+        </form>
+
+        <div class="mt-4">
+            <a href="" class="text-muted small text-decoration-none">← 戻る</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+    }
+    .result-container {
+        max-width: 650px; /* 縦長なので幅を絞って凝縮感を出す */
+        width: 100%;
+        margin: 4rem auto;
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(197, 160, 89, 0.3);
+        padding: 3rem;
+        text-align: center;
+    }
+    /* 画像を中央に、かつ印象的に配置する */
+    .char-image-wrapper {
+        width: 280px;
+        margin: 0 auto 3rem;
+        border: 1px solid var(--accent-gold);
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .char-image {
+        width: 100%;
+        height: auto;
+        filter: sepia(20%) contrast(1.1);
+    }
+    .char-name-jp {
+        font-size: 2.8rem;
+        letter-spacing: 0.8rem;
+        color: var(--accent-gold);
+        margin-bottom: 0.5rem;
+    }
+    .char-name-en {
+        font-size: 1.1rem;
+        text-uppercase: uppercase;
+        letter-spacing: 0.4rem;
+        opacity: 0.6;
+        margin-bottom: 2rem;
+    }
+    .play-title-tag {
+        display: inline-block;
+        border: 1px solid var(--accent-gold);
+        padding: 0.4rem 1.5rem;
+        font-size: 0.85rem;
+        margin-bottom: 3rem;
+        color: var(--accent-gold);
+    }
+    .description-box {
+        line-height: 2.2;
+        color: rgba(230, 241, 255, 0.8);
+        text-align: left;
+        padding: 0 1rem;
+        border-top: 1px solid rgba(197, 160, 89, 0.1);
+        padding-top: 2rem;
+    }
+    .btn-action {
+        letter-spacing: 0.2rem;
+        transition: all 0.4s;
+    }
+</style>
+
+<div class="hero-section min-vh-100 py-5">
+    <div class="container d-flex justify-content-center">
+        <div class="result-container">
+            <div class="glass-card shadow-lg">
+                <p class="text-uppercase small mb-5" style="color: var(--accent-gold); letter-spacing: 0.6rem; opacity: 0.8;">
+                    - Your Character -
+                </p>
+
+                <div class="char-image-wrapper">
+                    <img src="{{ asset('img/sample.png') }}" alt="" class="char-image">
+                </div>
+
+                <div class="result-info">
+                    <h2 class="char-name-jp fw-bold">ハムレット</h2>
+                    <div class="char-name-en">HAMLET</div>
+                    
+                    <div class="play-title-tag">
+                        script by HAMLET
+                    </div>
+
+                    <div class="description-box">
+                        <p class="mb-0">
+                            どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。眠れば、心の痛みにも、肉体が受け継ぐ無数の苦しみにもケリがつく。それこそ願ってもない結末だ。死ぬ。眠る。眠れば夢を見る。そう、厄介なのはそこだ。人生のしがらみを振り捨てても死という眠りの中でどんな夢をみるかわからない。だから二の足を踏まずにいられない。それを考えるから辛い人生を長引かせてしまう。でなければ世間が鞭打つあざけりをいったい誰が耐えるだろう。
+                        </p>
+                    </div>
+
+                    <div class="mt-5 d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a href="" class="btn btn-outline-warning btn-action px-5 py-3 text-uppercase small" style="color: var(--accent-gold); border-color: var(--accent-gold);">
+                            Next
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

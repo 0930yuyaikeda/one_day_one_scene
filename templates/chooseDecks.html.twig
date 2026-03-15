@@ -1,0 +1,103 @@
+{% extends 'base/base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    :root {
+        --dark-navy: #0a192f;
+        --accent-gold: #c5a059;
+        --text-silver: #e6f1ff;
+    }
+    .hero-section {
+        background: radial-gradient(circle at center, #112240 0%, var(--dark-navy) 100%);
+        color: var(--text-silver);
+        font-family: 'Georgia', serif;
+    }
+    .selection-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(197, 160, 89, 0.2);
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        overflow: hidden;
+    }
+    .selection-card:hover {
+        background: rgba(197, 160, 89, 0.1);
+        border-color: var(--accent-gold);
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+    .card-icon {
+        font-size: 3rem;
+        color: var(--accent-gold);
+        margin-bottom: 1.5rem;
+        opacity: 0.8;
+    }
+    .deck-title {
+        letter-spacing: 0.2rem;
+        color: var(--accent-gold);
+    }
+    .deck-description {
+        font-style: italic;
+        color: rgba(230, 241, 255, 0.6);
+        font-size: 0.9rem;
+    }
+    .shelf-line {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+        margin: 1.5rem 0;
+    }
+</style>
+
+<div class="hero-section min-vh-100 d-flex align-items-center py-5">
+    <div class="container text-center">
+        <h2 class="display-5 mb-2 fw-light">Choose Your Library</h2>
+        <p class="mb-5 text-uppercase small" style="color: var(--accent-gold); letter-spacing: 0.4rem;">
+            どの本棚から物語を始めますか？
+        </p>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-5">
+                <a href="#" class="selection-card d-block h-100 p-5">
+                    <div class="card-icon">❦</div>
+                    <h3 class="deck-title h4 text-uppercase">Romance</h3>
+                    <div class="shelf-line"></div>
+                    <p class="deck-description">
+                        「ロミオとジュリエット」のように、<br>情熱と運命が交錯する愛の物語。
+                    </p>
+                </a>
+            </div>
+
+            <div class="col-md-5">
+                <a href="#" class="selection-card d-block h-100 p-5">
+                    <div class="card-icon">⚔</div>
+                    <h3 class="deck-title h4 text-uppercase">Business</h3>
+                    <div class="shelf-line"></div>
+                    <p class="deck-description">
+                        「ベニスの商人」のように、<br>知略と野心が渦巻く社会の物語。
+                    </p>
+                </a>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <a href="" class="text-muted small text-decoration-none">← プレイヤー名を変更する</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
