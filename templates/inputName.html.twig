@@ -70,16 +70,17 @@
             Identify Yourself
         </h2>
 
-        <form action="#" method="POST">
+        {{form_start(form)}}
             <div class="mb-5">
-                <input type="text" name="guest_name" class="form-control form-control-shakespeare" 
-                    placeholder="Enter your name, player..." required autofocus>
+                {{form_widget(form.guest_name)}}
             </div>
 
-            <button type="submit" class="btn btn-gold btn-lg px-5 py-2 text-uppercase small">
-                物語を始める
-            </button>
-        </form>
+            <div class="mb-5">
+                {{form_widget(form.guest_gender_code)}}
+            </div>
+
+            {{form_widget(form.submit)}}
+        {{form_end(form)}}
 
         <div class="mt-4">
             <a href="" class="text-muted small text-decoration-none">← 戻る</a>

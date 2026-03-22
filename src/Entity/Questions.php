@@ -40,6 +40,8 @@ class Questions
     #[ORM\Column]
     private ?bool $valid_flag = null;
 
+    private array $choices = [];
+
     public function getQuestionId(): ?int
     {
         return $this->question_id;
@@ -150,6 +152,17 @@ class Questions
     {
         $this->valid_flag = $valid_flag;
 
+        return $this;
+    }
+
+    public function getChoices(): array
+    {
+        return $this->choices;
+    }
+
+    public function setChoices(array $choices): self
+    {
+        $this->choices = $choices;
         return $this;
     }
 }

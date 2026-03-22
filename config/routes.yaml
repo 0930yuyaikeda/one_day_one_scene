@@ -3,6 +3,22 @@ index:
     path: /
     controller: App\Controller\OneDayOneSceneController::index
 
+input_name:
+  path: /input_name
+  controller: App\Controller\OneDayOneSceneController::inputName
+
+choose_decks:
+  path: /choose_decks
+  controller: App\Controller\OneDayOneSceneController::chooseDecks
+
+check_deck_and_name:
+  path: /check_deck_and_name
+  controller: App\Controller\OneDayOneSceneController::checkDeckAndName
+
+question: 
+  path: /question
+  controller: App\Controller\OneDayOneSceneController::question
+
 
 # controllers:
 #     resource:

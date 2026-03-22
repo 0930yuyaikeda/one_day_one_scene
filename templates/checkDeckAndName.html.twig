@@ -69,13 +69,13 @@
 
         <div class="text-start px-md-4">
             <div class="summary-label">Player Name</div>
-            <div class="summary-value">Yuya IKEDA</div>
+            <div class="summary-value">{{guest.getGuestName}}</div>
 
-            <div class="summary-label">Selected Shelf</div>
-            <div class="summary-value">ROMANCE</div>
+            <div class="summary-label">Selected Deck</div>
+            <div class="summary-value">{{deck.getDeckName}}</div>
 
             <p class="small mb-5 italic" style="color: rgba(230, 241, 255, 0.6); line-height: 1.8;">
-                傷の痛みを知らない奴は、他人の傷をあざ笑う。待て、何だろう、あの窓から射してくる光は？
+                {{deck.getDeckDescription}}
             </p>
         </div>
 
@@ -85,7 +85,7 @@
             <p class="small mb-4" style="color: var(--accent-gold); font-style: italic;">
                 舞台の準備は整いました。
             </p>
-            <a href="" class="btn btn-gold text-uppercase fw-bold">
+            <a href="{{ path('question') }}" class="btn btn-gold text-uppercase fw-bold">
                 Start
             </a>
         </div>

@@ -16,6 +16,15 @@ class GuestsRepository extends ServiceEntityRepository
         parent::__construct($registry, Guests::class);
     }
 
+    public function save(Guests $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
     //    /**
     //     * @return Guests[] Returns an array of Guests objects
     //     */

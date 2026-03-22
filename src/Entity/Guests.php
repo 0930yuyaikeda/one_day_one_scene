@@ -14,13 +14,13 @@ class Guests
     private ?int $guest_id = null;
 
     #[ORM\Column]
-    private ?int $gest_type = null;
+    private ?int $guest_type = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $gest_name = null;
+    private ?string $guest_name = null;
 
     #[ORM\Column]
-    private ?int $gest_gender_code = null;
+    private ?int $guest_gender_code = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $deck_id = null;
@@ -57,38 +57,38 @@ class Guests
         return $this->guest_id;
     }
 
-    public function getGestType(): ?int
+    public function getGuestType(): ?int
     {
-        return $this->gest_type;
+        return $this->guest_type;
     }
 
-    public function setGestType(int $gest_type): static
+    public function setGuestType(int $guest_type): static
     {
-        $this->gest_type = $gest_type;
+        $this->guest_type = $guest_type;
 
         return $this;
     }
 
-    public function getGestName(): ?string
+    public function getGuestName(): ?string
     {
-        return $this->gest_name;
+        return $this->guest_name;
     }
 
-    public function setGestName(?string $gest_name): static
+    public function setGuestName(?string $guest_name): static
     {
-        $this->gest_name = $gest_name;
+        $this->guest_name = $guest_name;
 
         return $this;
     }
 
-    public function getGestGenderCode(): ?int
+    public function getGuestGenderCode(): ?int
     {
-        return $this->gest_gender_code;
+        return $this->guest_gender_code;
     }
 
-    public function setGestGenderCode(int $gest_gender_code): static
+    public function setGuestGenderCode(int $guest_gender_code): static
     {
-        $this->gest_gender_code = $gest_gender_code;
+        $this->guest_gender_code = $guest_gender_code;
 
         return $this;
     }
