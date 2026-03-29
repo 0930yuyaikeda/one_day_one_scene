@@ -37,6 +37,8 @@ class Choices
     #[ORM\Column]
     private ?bool $valid_flag = null;
 
+    private array $choice_points = [];
+
     public function getChoiceId(): ?int
     {
         return $this->choice_id;
@@ -135,6 +137,17 @@ class Choices
     {
         $this->valid_flag = $valid_flag;
 
+        return $this;
+    }
+
+    public function getChoicePoints(): array
+    {
+        return $this->choice_points;
+    }
+
+    public function setChoicePoints(array $choice_points): self
+    {
+        $this->$choice_points = $choice_points;
         return $this;
     }
 }

@@ -199,23 +199,25 @@ class OneDayOneSceneController extends AbstractController
         ]);
 
         // 選択肢用の配列を宣言
+        $allChoice = [];
         $choiceIds = [];
 
         // 選択肢を取得する
         foreach($questions as $question){
 
             // 選択肢を抽出
-            $workChoices = $choicesRepository->findBy([
+            $choices = $choicesRepository->findBy([
                 'question_id' => $question->getQuestionId(),
                 'valid_flag' => true,
             ]);
 
             // 選択肢を格納
-            $question->setChoices($workChoices);
+            $question->setChoices($choices);
 
             // すべての選択肢IDを取得する。
-            foreach($workChoices as $workChoice){
-                $choiceIds[] = $workChoice->getChoiceId();
+            foreach($choices as $choice){
+                $allChoice[] = $choice;
+                $choiceIds[] = $choice->getChoiceId();
             }
         }
 
@@ -230,32 +232,32 @@ class OneDayOneSceneController extends AbstractController
             $workAnswers = $form->getData();
 
             // 答えを配列に変換する
-            $answers = [];
-            $answers[] = $workAnswers->getQuestion1();
-            $answers[] = $workAnswers->getQuestion2();
-            $answers[] = $workAnswers->getQuestion3();
-            $answers[] = $workAnswers->getQuestion4();
-            $answers[] = $workAnswers->getQuestion5();
-            $answers[] = $workAnswers->getQuestion6();
-            $answers[] = $workAnswers->getQuestion7();
-            $answers[] = $workAnswers->getQuestion8();
-            $answers[] = $workAnswers->getQuestion9();
-            $answers[] = $workAnswers->getQuestion10();
-            $answers[] = $workAnswers->getQuestion11();
-            $answers[] = $workAnswers->getQuestion12();
-            $answers[] = $workAnswers->getQuestion13();
-            $answers[] = $workAnswers->getQuestion14();
-            $answers[] = $workAnswers->getQuestion15();
+            $answer1 = $workAnswers->getQuestion1();
+            $answer2 = $workAnswers->getQuestion2();
+            $answer3 = $workAnswers->getQuestion3();
+            $answer4 = $workAnswers->getQuestion4();
+            $answer5 = $workAnswers->getQuestion5();
+            $answer6 = $workAnswers->getQuestion6();
+            $answer7 = $workAnswers->getQuestion7();
+            $answer8 = $workAnswers->getQuestion8();
+            $answer9 = $workAnswers->getQuestion9();
+            $answer10 = $workAnswers->getQuestion10();
+            $answer11 = $workAnswers->getQuestion11();
+            $answer12 = $workAnswers->getQuestion12();
+            $answer13 = $workAnswers->getQuestion13();
+            $answer14 = $workAnswers->getQuestion14();
+            $answer15 = $workAnswers->getQuestion15();
 
             // 選択肢ごとのポイント数を取得する
             $choicePoints = $choicePointsRepository->findBy([
-                'choice_point_id' => $choiceIds,
+                'choice_id' => $choiceIds,
                 'valid_flag' => true,
             ]);
 
             // ゲストのguestPointsを作成
             $guestPoints = [];
-            $characters = $charactersRepository->findBy([    
+            $characters = $charactersRepository->findBy([ 
+                'character_gender_code'  => $guest->getGuestGenderCode(),
                 'valid_flag' => true,
             ]);
 
@@ -271,31 +273,54 @@ class OneDayOneSceneController extends AbstractController
                 $guestPoints[] = $guestPoint;
             }
 
-            dd($guestPoints);
-
-
-
-
             // 選択肢を分析して、キャラクターを分析する。
-            foreach ($answers as $answer) {
+            // Answer 1
+            $guestPoints = $this->characterPointAddition( $answer1, $choicePoints, $guestPoints);
 
-                // NULLだったらブレイクする。
-                if ( $answer === NULL ) {
-                    dd('break');
-                    break;
-                }
-            }
+            // Answer 2
+            $guestPoints = $this->characterPointAddition( $answer2, $choicePoints, $guestPoints);
 
+            // Answer 3
+            $guestPoints = $this->characterPointAddition( $answer3, $choicePoints, $guestPoints);
 
+            // Answer 4
+            $guestPoints = $this->characterPointAddition( $answer4, $choicePoints, $guestPoints);
 
+            // Answer 5
+            $guestPoints = $this->characterPointAddition( $answer5, $choicePoints, $guestPoints);
 
-            //
-            // dd($choicePoints);
-            // dd($questions);
-            // dd($guest);
-            // dd($answers);
-            dd('ikeda');
+            // Answer 6
+            $guestPoints = $this->characterPointAddition( $answer6, $choicePoints, $guestPoints);
 
+            // Answer 7
+            $guestPoints = $this->characterPointAddition( $answer7, $choicePoints, $guestPoints);
+
+            // Answer 8
+            $guestPoints = $this->characterPointAddition( $answer8, $choicePoints, $guestPoints);
+
+            // Answer 9
+            $guestPoints = $this->characterPointAddition( $answer9, $choicePoints, $guestPoints);
+
+            // Answer 10
+            $guestPoints = $this->characterPointAddition( $answer10, $choicePoints, $guestPoints);
+
+            // Answer 11
+            $guestPoints = $this->characterPointAddition( $answer11, $choicePoints, $guestPoints);
+
+            // Answer 12
+            $guestPoints = $this->characterPointAddition( $answer12, $choicePoints, $guestPoints);
+
+            // Answer 13
+            $guestPoints = $this->characterPointAddition( $answer13, $choicePoints, $guestPoints);
+
+            // Answer 14
+            $guestPoints = $this->characterPointAddition( $answer14, $choicePoints, $guestPoints);
+
+            // Answer 15
+            $guestPoints = $this->characterPointAddition( $answer15, $choicePoints, $guestPoints);
+
+            // 計算完了
+            dd($guestPoints);
         }
 
         return $this->render('question.html.twig',[
@@ -304,5 +329,40 @@ class OneDayOneSceneController extends AbstractController
         ]);
     }
 
+    public function characterPointAddition( $answer, $choicePoints, $guestPoints) {
 
+        // 選択肢を分析して、キャラクターを分析する。
+        $return = $guestPoints;
+
+        // NULLでないことを確認
+        if ($answer !==  NULL ) {
+            // $choicePointsをループして答えと一致するポイントを検索
+            foreach ($choicePoints as $choicePoint) {
+
+                // 答えと一致するポイント
+                if ( $answer === $choicePoint->getChoiceId() ) {
+
+                    // $guestPointsループしてキャラクターIDの一致を検索
+                    foreach ( $guestPoints as $guestPoint ) {
+
+                        // キャラクターIDの一致
+                        if ( $guestPoint->getCharacterId() === $choicePoint->getCharacterId() ) {
+
+                            // 元のポイントを取得
+                            $baseGestPoint = $guestPoint->getGestPoint();
+                            if ( $baseGestPoint === null ) {
+                                // 元のポイントがNULLならばを0を代入
+                                $baseGestPoint = 0;
+                            }
+
+                            // ポイントを追加
+                            $guestPoint->setGestPoint( $baseGestPoint + ($choicePoint->getPoint()) );
+                            $return = $guestPoints;
+                        }
+                    }
+                }
+            }
+        }
+        return $return;
+    }
 }

@@ -29,9 +29,9 @@ class GuestType extends AbstractType
                 'label_html' => true,
                 'choices'  => [
                     '' => 0,
-                    '男性を演じる' => 0,
-                    '女性を演じる' => 1,
-                    'どちらでもよい' => 2,
+                    '女性を演じる' => 0,
+                    '男性を演じる' => 1,
+                    'どちらでもよい' => null,
                 ],
                 'attr'       => [
                     'class' => 'form-control form-control-shakespeare',

@@ -73,14 +73,14 @@
 
     <div id="question-area" class="question-card text-center">
         <h2 id="question-title" class="display-6 fw-light mb-5" style="line-height: 1.5; border-left: 2px solid var(--accent-gold); padding-left: 2rem; text-align: left;">
-            
+
         </h2>
         <div id="question-text" class="display-8 fw-light mb-5" style="line-height: 1.5; border-left: 2px solid var(--accent-gold); padding-left: 2rem; text-align: left;">
-            
+
         </div>
 
         <div id="choices-container" class="mt-5">
-        
+
         </div>
     </div>
 
@@ -123,10 +123,22 @@ document.addEventListener('DOMContentLoaded', () => {
         title: questionJson[ i ].questionName,
         text:  questionJson[ i ].questionDescription,
         choices: [
-            questionJson[ i ].choices[0].choice,
-            questionJson[ i ].choices[1].choice,
-            questionJson[ i ].choices[2].choice,
-            questionJson[ i ].choices[3].choice,
+            [
+                questionJson[ i ].choices[0].choice,
+                questionJson[ i ].choices[0].choiceId,
+            ],
+            [
+                questionJson[ i ].choices[1].choice,
+                questionJson[ i ].choices[1].choiceId,
+            ],
+            [
+                questionJson[ i ].choices[2].choice,
+                questionJson[ i ].choices[2].choiceId,
+            ],
+            [
+                questionJson[ i ].choices[3].choice,
+                questionJson[ i ].choices[3].choiceId,
+            ],
         ]
     }));
 
@@ -162,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const q = questions[currentIndex];
-        
+
         // 進捗更新
         const progress = ((currentIndex + 1) / questions.length) * 100;
         progressBar.style.width = `${progress}%`;
@@ -181,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.setAttribute('choice', index);
             btn.setAttribute('my-custom-attr', q.id);
             {# btn.dataChoice = index; #}
-            btn.innerHTML = `<span style="opacity:0.5; margin-right:1rem;">${index + 1}.</span> ${choice}`;
+            btn.innerHTML = `<span style="opacity:0.5; margin-right:1rem;">${index + 1}.</span> ${choice[0]}`;
             btn.onclick = () => {
                 currentIndex++;
                 updateQuestion();
@@ -190,79 +202,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Question1
                 if (question === 1) {
-                    console.log('せんたく');
-                    questionQuestion1.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion1.value = q.choices[choice][1];
                 }
 
                 // Question2
                 if (question === 2) {
-                    console.log('せ');
-                    questionQuestion2.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion2.value = q.choices[choice][1];
                 }
 
                 // Question3
                 if (question === 3) {
-                    questionQuestion3.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion3.value = q.choices[choice][1];
                 }
 
                 // Question4
                 if (question === 4) {
-                    questionQuestion4.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion4.value = q.choices[choice][1];
                 }
 
                 // Question5
                 if (question === 5) {
-                    questionQuestion5.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion5.value = q.choices[choice][1];
                 }
 
                 // Question6
                 if (question === 6) {
-                    questionQuestion6.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion6.value = q.choices[choice][1];
                 }
 
                 // Question7
                 if (question === 7) {
-                    questionQuestion7.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion7.value = q.choices[choice][1];
                 }
 
                 // Question8
                 if (question === 8) {
-                    questionQuestion8.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion8.value = q.choices[choice][1];
                 }
 
                 // Question9
                 if (question === 9) {
-                    questionQuestion9.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion9.value = q.choices[choice][1];
                 }
 
                 // Question10
                 if (question === 10) {
-                    questionQuestion10.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion10.value = q.choices[choice][1];
                 }
 
                 // Question11
                 if (question === 11) {
-                    questionQuestion11.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion11.value = q.choices[choice][1];
                 }
 
                 // Question12
                 if (question === 12) {
-                    questionQuestion12.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion12.value = q.choices[choice][1];
                 }
 
                 // Question13
                 if (question === 13) {
-                    questionQuestion13.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion13.value = q.choices[choice][1];
                 }
 
                 // Question14
                 if (question === 14) {
-                    questionQuestion14.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion14.value = q.choices[choice][1];
                 }
 
                 // Question15
                 if (question === 15) {
-                    questionQuestion15.value = choice;
+                    console.log(q.choices[choice][1]);
+                    questionQuestion15.value = q.choices[choice][1];
                 }
             };
             choicesContainer.appendChild(btn);
