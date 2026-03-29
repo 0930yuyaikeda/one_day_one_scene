@@ -84,10 +84,10 @@ class QuestionType extends AbstractType
             ])
 
             ->add('submit', SubmitType::class, [
-                'label'      => 'NEXT',
+                'label'      => '結果を見る',
                 'label_html' => true,
                 'attr'       => [
-                    'class' => 'btn btn-light px-3',
+                    'class' => 'btn btn-outline-warning btn-lg px-5 py-3 text-uppercase',
                 ],
             ]);
     }

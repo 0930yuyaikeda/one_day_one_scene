@@ -41,81 +41,81 @@ class QuestionFormModel
      * QuestionModel getter
      */
 
-    public function getQuestion1():int
+    public function getQuestion1(): ?int
     {
         return $this->question1;
     }
     
-    public function getQuestion2():int
+    public function getQuestion2(): ?int
     {
         return $this->question2;
     }
     
-    public function getQuestion3():int
+    public function getQuestion3(): ?int
     {
         return $this->question3;
     }
     
-    public function getQuestion4():int
+    public function getQuestion4(): ?int
     {
         return $this->question4;
     }
     
-    public function getQuestion5():int
+    public function getQuestion5(): ?int
     {
         return $this->question5;
     }
     
-    public function getQuestion6():int
+    public function getQuestion6(): ?int
     {
         return $this->question6;
     }
     
-    public function getQuestion7():int
+    public function getQuestion7(): ?int
     {
         return $this->question7;
     }
     
-    public function getQuestion8():int
+    public function getQuestion8(): ?int
     {
         return $this->question8;
     }
     
-    public function getQuestion9():int
+    public function getQuestion9(): ?int
     {
         return $this->question9;
     }
     
-    public function getQuestion10():int
+    public function getQuestion10(): ?int
     {
         return $this->question10;
     }
     
-    public function getQuestion11():int
+    public function getQuestion11(): ?int
     {
         return $this->question11;
     }
 
     
-    public function getQuestion12():int
+    public function getQuestion12(): ?int
     {
         return $this->question12;
     }
 
     
-    public function getQuestion13():int
+    public function getQuestion13(): ?int
     {
         return $this->question13;
     }
 
     
-    public function getQuestion14():int
+    public function getQuestion14(): ?int
     {
         return $this->question14;
     }
 
     
-    public function getQuestion15():int
+    public function getQuestion15(): ?int
     {
         return $this->question15;
     }

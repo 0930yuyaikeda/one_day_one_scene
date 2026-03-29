@@ -73,38 +73,60 @@
 
     <div id="question-area" class="question-card text-center">
         <h2 id="question-title" class="display-6 fw-light mb-5" style="line-height: 1.5; border-left: 2px solid var(--accent-gold); padding-left: 2rem; text-align: left;">
-            Question 1
+            
         </h2>
         <div id="question-text" class="display-8 fw-light mb-5" style="line-height: 1.5; border-left: 2px solid var(--accent-gold); padding-left: 2rem; text-align: left;">
-            ここに質問文が表示されます。
+            
         </div>
 
         <div id="choices-container" class="mt-5">
-            </div>
+        
+        </div>
     </div>
 
     <div id="finish-area" class="question-card text-center hidden">
-        <h2 class="display-4 fw-light mb-4">お疲れ様でした。</h2>
-        <p class="lead mb-5" style="color: rgba(230, 241, 255, 0.6); font-style: italic;">
-            "The rest is silence." - あなたの魂の配役が決まりました。
-        </p>
-        <a href="#" class="btn btn-outline-warning btn-lg px-5 py-3 text-uppercase" style="color: var(--accent-gold); border-color: var(--accent-gold); letter-spacing: 0.2rem;">
-            結果を見る
-        </a>
+
+         {{form_start(form)}}
+            {{form_widget(form.question1)}}
+            {{form_widget(form.question2)}}
+            {{form_widget(form.question3)}}
+            {{form_widget(form.question4)}}
+            {{form_widget(form.question5)}}
+            {{form_widget(form.question6)}}
+            {{form_widget(form.question7)}}
+            {{form_widget(form.question8)}}
+            {{form_widget(form.question9)}}
+            {{form_widget(form.question10)}}
+            {{form_widget(form.question11)}}
+            {{form_widget(form.question12)}}
+            {{form_widget(form.question13)}}
+            {{form_widget(form.question14)}}
+            {{form_widget(form.question15)}}
+
+            <h2 class="display-4 fw-light mb-4">お疲れ様でした。</h2>
+            <p class="lead mb-5" style="color: rgba(230, 241, 255, 0.6); font-style: italic;">
+                "The rest is silence." - あなたの魂の配役が決まりました。
+            </p>
+
+            {{form_widget(form.submit)}}
+        {{form_end(form)}}
     </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+
+    let questionJson = JSON.parse( '{{ questionJson|escape("js") }}' );
+
     const questions = Array.from({ length: 10 }, (_, i) => ({
         id: i + 1,
-        title: `Question ${i + 1}`,
-        text: `これは第 ${i + 1} 問目のサンプル質問です。あなたの知性は、この劇的な問いにどう答えますか？`,
+        title: questionJson[ i ].questionName,
+        text:  questionJson[ i ].questionDescription,
         choices: [
-            "運命に従い、静かに受け入れる",
-            "知略を尽くし、状況を打破する",
-            "情熱のままに、愛に身を投じる",
-            "沈黙を守り、機が熟すのを待つ"
+            questionJson[ i ].choices[0].choice,
+            questionJson[ i ].choices[1].choice,
+            questionJson[ i ].choices[2].choice,
+            questionJson[ i ].choices[3].choice,
         ]
     }));
 
@@ -117,6 +139,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const choicesContainer = document.getElementById('choices-container');
     const questionArea = document.getElementById('question-area');
     const finishArea = document.getElementById('finish-area');
+    let questionQuestion1 = document.getElementById('question_question1');
+    let questionQuestion2 = document.getElementById('question_question2');
+    let questionQuestion3 = document.getElementById('question_question3');
+    let questionQuestion4 = document.getElementById('question_question4');
+    let questionQuestion5 = document.getElementById('question_question5');
+    let questionQuestion6 = document.getElementById('question_question6');
+    let questionQuestion7 = document.getElementById('question_question7');
+    let questionQuestion8 = document.getElementById('question_question8');
+    let questionQuestion9 = document.getElementById('question_question9');
+    let questionQuestion10 = document.getElementById('question_question10');
+    let questionQuestion11 = document.getElementById('question_question11');
+    let questionQuestion12 = document.getElementById('question_question12');
+    let questionQuestion13 = document.getElementById('question_question13');
+    let questionQuestion14 = document.getElementById('question_question14');
+    let questionQuestion15 = document.getElementById('question_question15');
 
     function updateQuestion() {
         if (currentIndex >= questions.length) {
@@ -140,10 +177,93 @@ document.addEventListener('DOMContentLoaded', () => {
         q.choices.forEach((choice, index) => {
             const btn = document.createElement('div');
             btn.className = 'choice-btn';
+            btn.setAttribute('question', q.id);
+            btn.setAttribute('choice', index);
+            btn.setAttribute('my-custom-attr', q.id);
+            {# btn.dataChoice = index; #}
             btn.innerHTML = `<span style="opacity:0.5; margin-right:1rem;">${index + 1}.</span> ${choice}`;
             btn.onclick = () => {
                 currentIndex++;
                 updateQuestion();
+                let question = Number(btn.getAttribute('question'));
+                let choice = Number(btn.getAttribute('choice'));
+
+                // Question1
+                if (question === 1) {
+                    console.log('せんたく');
+                    questionQuestion1.value = choice;
+                }
+
+                // Question2
+                if (question === 2) {
+                    console.log('せ');
+                    questionQuestion2.value = choice;
+                }
+
+                // Question3
+                if (question === 3) {
+                    questionQuestion3.value = choice;
+                }
+
+                // Question4
+                if (question === 4) {
+                    questionQuestion4.value = choice;
+                }
+
+                // Question5
+                if (question === 5) {
+                    questionQuestion5.value = choice;
+                }
+
+                // Question6
+                if (question === 6) {
+                    questionQuestion6.value = choice;
+                }
+
+                // Question7
+                if (question === 7) {
+                    questionQuestion7.value = choice;
+                }
+
+                // Question8
+                if (question === 8) {
+                    questionQuestion8.value = choice;
+                }
+
+                // Question9
+                if (question === 9) {
+                    questionQuestion9.value = choice;
+                }
+
+                // Question10
+                if (question === 10) {
+                    questionQuestion10.value = choice;
+                }
+
+                // Question11
+                if (question === 11) {
+                    questionQuestion11.value = choice;
+                }
+
+                // Question12
+                if (question === 12) {
+                    questionQuestion12.value = choice;
+                }
+
+                // Question13
+                if (question === 13) {
+                    questionQuestion13.value = choice;
+                }
+
+                // Question14
+                if (question === 14) {
+                    questionQuestion14.value = choice;
+                }
+
+                // Question15
+                if (question === 15) {
+                    questionQuestion15.value = choice;
+                }
             };
             choicesContainer.appendChild(btn);
         });

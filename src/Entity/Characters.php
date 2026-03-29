@@ -44,6 +44,9 @@ class Characters
     private ?int $character_selected_number = null;
 
     #[ORM\Column]
+    private ?int $priority_number = null;
+
+    #[ORM\Column]
     private ?\DateTime $created_datetime = null;
 
     #[ORM\Column(nullable: true)]
@@ -181,6 +184,16 @@ class Characters
         $this->character_selected_number = $character_selected_number;
 
         return $this;
+    }
+
+    public function getPriorityNumber(): ?int
+    {
+        return $this->priority_number;
+    }
+
+    public function setPriorityNumber(int $priority_number): static
+    {
+        return $this->priority_number = $priority_number;
     }
 
     public function getCreatedDatetime(): ?\DateTime

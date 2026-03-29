@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Admins;
 use App\Entity\Guests;
 use App\Entity\Choices;
+use App\Entity\ChoicePoints;
+use App\Entity\GuestPoints;
 
 // Repository
 use App\Repository\AdminsRepository;
@@ -20,6 +22,9 @@ use App\Repository\GuestsRepository;
 use App\Repository\DecksRepository;
 use App\Repository\QuestionsRepository;
 use App\Repository\ChoicesRepository;
+use App\Repository\GuestPointsRepository;
+use App\Repository\ChoicePointsRepository;
+use App\Repository\CharactersRepository;
 
 // Form
 use App\Form\GuestType;
@@ -167,7 +172,16 @@ class OneDayOneSceneController extends AbstractController
         ]);
     }
 
-    public function question(Request $request, Session $session, GuestsRepository $guestsRepository, QuestionsRepository $questionsRepository, ChoicesRepository $choicesRepository): Response
+    public function question(
+        Request $request,
+        Session $session,
+        GuestsRepository $guestsRepository,
+        QuestionsRepository $questionsRepository,
+        ChoicesRepository $choicesRepository,
+        GuestPointsRepository $guestPointsRepository,
+        ChoicePointsRepository $choicePointsRepository,
+        CharactersRepository $charactersRepository
+    ): Response
     {
         // ゲストIDを取得
         $guestId = $session->get('guest_id');
@@ -184,6 +198,9 @@ class OneDayOneSceneController extends AbstractController
             'valid_flag' => true,
         ]);
 
+        // 選択肢用の配列を宣言
+        $choiceIds = [];
+
         // 選択肢を取得する
         foreach($questions as $question){
 
@@ -195,19 +212,95 @@ class OneDayOneSceneController extends AbstractController
 
             // 選択肢を格納
             $question->setChoices($workChoices);
+
+            // すべての選択肢IDを取得する。
+            foreach($workChoices as $workChoice){
+                $choiceIds[] = $workChoice->getChoiceId();
+            }
         }
 
+        // フォームを作成
         $form = $this->createForm(QuestionType::class, new QuestionFormModel());
         $form->handleRequest($request);
 
-        //　結果を見る
+        //　結果を見て診断する！
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // 答えを取得。
+            $workAnswers = $form->getData();
+
+            // 答えを配列に変換する
+            $answers = [];
+            $answers[] = $workAnswers->getQuestion1();
+            $answers[] = $workAnswers->getQuestion2();
+            $answers[] = $workAnswers->getQuestion3();
+            $answers[] = $workAnswers->getQuestion4();
+            $answers[] = $workAnswers->getQuestion5();
+            $answers[] = $workAnswers->getQuestion6();
+            $answers[] = $workAnswers->getQuestion7();
+            $answers[] = $workAnswers->getQuestion8();
+            $answers[] = $workAnswers->getQuestion9();
+            $answers[] = $workAnswers->getQuestion10();
+            $answers[] = $workAnswers->getQuestion11();
+            $answers[] = $workAnswers->getQuestion12();
+            $answers[] = $workAnswers->getQuestion13();
+            $answers[] = $workAnswers->getQuestion14();
+            $answers[] = $workAnswers->getQuestion15();
+
+            // 選択肢ごとのポイント数を取得する
+            $choicePoints = $choicePointsRepository->findBy([
+                'choice_point_id' => $choiceIds,
+                'valid_flag' => true,
+            ]);
+
+            // ゲストのguestPointsを作成
+            $guestPoints = [];
+            $characters = $charactersRepository->findBy([    
+                'valid_flag' => true,
+            ]);
+
+            // キャラクターの数だけゲストポイントを作成
+            foreach ($characters as $character) {
+                // ゲストポイント単体を作成
+                $guestPoint = new GuestPoints();
+
+                // ゲストポイントにキャラクターIDを格納
+                $guestPoint->setCharacterId($character->getCharacterId());
+
+                // ゲストポイントを配列に格納
+                $guestPoints[] = $guestPoint;
+            }
+
+            dd($guestPoints);
+
+
+
+
+            // 選択肢を分析して、キャラクターを分析する。
+            foreach ($answers as $answer) {
+
+                // NULLだったらブレイクする。
+                if ( $answer === NULL ) {
+                    dd('break');
+                    break;
+                }
+            }
+
+
+
+
+            //
+            // dd($choicePoints);
+            // dd($questions);
+            // dd($guest);
+            // dd($answers);
             dd('ikeda');
+
         }
 
         return $this->render('question.html.twig',[
             'form' => $form->createView(),
-            'question' => $question
+            'questionJson' => $this->json($questions,)->getContent(),
         ]);
     }
 
