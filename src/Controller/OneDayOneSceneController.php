@@ -319,8 +319,98 @@ class OneDayOneSceneController extends AbstractController
             // Answer 15
             $guestPoints = $this->characterPointAddition( $answer15, $choicePoints, $guestPoints);
 
-            // 計算完了
-            dd($guestPoints);
+            // ポイント振り完了
+
+            // どのポイントが一番高いかを判別する。
+            $highestPoint = null;
+
+            // $guestPointsをループさせながら、一番高いポイントを調査。
+            foreach ( $guestPoints as $guestPoint ) {
+
+                // 最初の1週目は比較対象がいないので、最初の$guestPointを格納
+                if ( $highestPoint === null ) {
+                    $highestPoint = $guestPoint->getGestPoint();
+                } else {
+
+                    // 現在の最も高いポイントと比較
+                    if ( $guestPoint->getGestPoint() >= $highestPoint ) {
+
+                        // より高い値をhighestGuestPointに格納
+                        $highestPoint = $guestPoint->getGestPoint();
+                    }
+                }
+            }
+
+            // 同じポイントで入っている可能性があるので配列で宣言
+            $highestGuestPoints = [];
+
+            // 一番高い$highestPointのポイントを$guestPointsを判別。
+            // $guestPointsをループさせながら、一番高いポイントを調査
+            foreach ( $guestPoints as $guestPoint ) {
+
+                // $highestPointのポイントと一致するものを格納
+                if ( $highestPoint === $guestPoint->getGestPoint() ) {
+
+                    // 格納処理
+                    $highestGuestPoints[] = $guestPoint;
+                }
+            }
+
+            // 一番高い選ばれたキャラクターを宣言しておく。
+            $selectedCharacter = null;
+
+            // $highestGuestPointsの配列の要素数を調査して複数ある場合は優先順位で決める。
+            if ( count($highestGuestPoints) >= 1 ) {
+
+                // 複数の場合の処理
+                // ポイントの高いキャラクターを格納する配列を宣言。
+                $highestCharacters = [];
+
+                // $highestGuestPointsをループさせながら、キャラクターを格納
+                foreach ($highestGuestPoints as $highestGuestPoint ) {
+
+                    // ダブルループ（何このコメント？）
+                    foreach ( $characters as $character ) {
+
+                        // キャラクターIDを比較して一致を探す。
+                        if ( $highestGuestPoint->getCharacterId() === $character->getCharacterId() ) {
+
+                            // 最もポイントの高いキャラクターを格納
+                            $highestCharacters[] = $character;
+                        }
+                    }
+                }
+
+                // 優先順位を確認して最も優先順位の高いキャラクターを判別する。
+                foreach ($highestCharacters as $highestCharacter ) {
+
+                    // 最初の1週目は比較対象がいないので、最初の$guestPointを格納
+                    if ( $selectedCharacter === null ) {
+                        $selectedCharacter = $highestCharacter;
+                    } else {
+
+                        // 現在の最も優先順位が最も小さいキャラクターと比較。
+                        if ( $selectedCharacter->getPriorityNumber() > $highestCharacter->getPriorityNumber() ) {
+
+                            // より高い値をhighestGuestPointに格納
+                            $selectedCharacter = $highestCharacter;
+                        }
+                    }
+                }
+            } else {
+                // $highestGuestPointsに１つしか要素はないので、解体して、キャラクターIDを取得する。
+                $highestPointCharacterId = reset($highestGuestPoints)->getCharacterId();
+
+                foreach ( $characters as $character ) {
+                    if ( $highestPointCharacterId === $character->getCharacterId() ) {
+                        $selectedCharacter = $character;
+                    }
+                }
+            }
+
+            // キャラクター選択完了
+
+
         }
 
         return $this->render('question.html.twig',[
