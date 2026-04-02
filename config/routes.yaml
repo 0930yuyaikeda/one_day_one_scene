@@ -27,6 +27,17 @@ chooseScene:
   path: /chooseScene
   controller: App\Controller\OneDayOneSceneController::chooseScene
 
+checkBeforePerformance:
+  path: /checkBeforePerformance
+  controller: App\Controller\OneDayOneSceneController::checkBeforePerformance
+
+countdown:
+  path: /countdown
+  controller: App\Controller\OneDayOneSceneController::countdown
+
+performance:
+  path: /performance
+  controller: App\Controller\OneDayOneSceneController::performance
 
 # controllers:
 #     resource:

@@ -80,13 +80,13 @@
         <p class="text-uppercase small mb-2" style="color: var(--accent-gold); letter-spacing: 0.5rem; opacity: 0.7;">
             - Act Your Part -
         </p>
-        <h2 class="display-5 fw-light mb-5"> ハムレット として、どの場面に立ちますか？</h2>
+        <h2 class="display-5 fw-light mb-5"> {{ character.getCharacterName }} として、どの場面に立ちますか？</h2>
 
         <div class="row g-4 scene-grid justify-content-center">
             {% for scene in scenes %}
 
                 <div class="col-md-6">
-                    <a href={{ path('scene_explanation', {'sceneId': scene.sceneId}) }} class="scene-card shadow-sm">
+                    <a href={{ path('checkBeforePerformance', {'sceneId': scene.sceneId}) }} class="scene-card shadow-sm">
                         <h3 class="scene-title">{{ scene.getSceneName }}</h3>
                         <p class="scene-desc">
                             {{ scene.getSceneDescription }}

@@ -80,18 +80,18 @@
 
     <div class="glass-info-card shadow">
         <h2 class="h4 mb-2" style="color: var(--accent-gold);">
-            ハムレット
+            {{script.getScriptTitle}}
         </h2>
         <div class="small text-uppercase mb-3" style="opacity: 0.6; letter-spacing: 0.3rem;">
-            三幕一場
+            {{scene.getSceneName}}
         </div>
         <p class="mb-0 small italic" style="color: rgba(230, 241, 255, 0.7); line-height: 1.6;">
-            どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。眠れば、心の痛みにも、肉体が受け継ぐ無数の苦しみにもケリがつく。
+            {{scene.getSceneDescription}}
         </p>
     </div>
 
     <div>
-        <a href="#" id="action-button" class="btn btn-theatrical text-uppercase">
+        <a href="{{ path('performance') }}" id="action-button" class="btn btn-theatrical text-uppercase">
             PLEASE WAIT
         </a>
     </div>
@@ -124,11 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
             display.textContent = 'Ready to play';
             display.classList.add('ready-mode');
             statusLabel.textContent = 'The Curtain Rises';
-            
+
             // ボタンの切り替え
             button.textContent = 'Play now';
             button.classList.add('btn-active');
-            button.href = '/play-scene'; // 次のシーンへのパスを設定しろよ
         }
     }, 1000);
 });

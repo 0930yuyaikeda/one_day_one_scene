@@ -518,6 +518,108 @@ class OneDayOneSceneController extends AbstractController
         ]);
     }
 
+    public function checkBeforePerformance( 
+        Request $request,
+        Session $session,
+        GuestsRepository $guestsRepository,
+        CharactersRepository $charactersRepository,
+        ScriptsRepository $scriptsRepository,
+        ScenesRepository $scenesRepository,
+    ) {
+
+        // Guestが選んだシーンIDを取得。
+        $selectedSceneId = (int)$request->query->get('sceneId');
+        
+        // ゲストIDを取得
+        $guestId = $session->get('guest_id');
+
+        // ゲストを取得
+        $guest = $guestsRepository->findOneBy([
+            'guest_id' => $guestId,
+            'valid_flag' => true,
+        ]);
+
+        // シーンIDをGuestに登録。
+        $guest->setSceneId( $selectedSceneId );
+
+        // DBを更新
+        $guestsRepository->save($guest, true);
+
+        // ゲストの選んだキャラクターを取得
+        $character = $charactersRepository->findOneBy([
+            'character_id' => $guest->getCharacterId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターの戯曲を取得
+        $script = $scriptsRepository->findOneBy([
+            'script_id' => $character->getScriptId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターがメインになっているシーン抽出
+        $scene = $scenesRepository->findOneBy([
+            'scene_id' => $selectedSceneId,
+            'valid_flag' => true,
+        ]);
+
+        return $this->render('checkBeforePerformance.html.twig',[
+            'character' => $character,
+            'script' => $script,
+            'scene' => $scene,
+        ]);
+    }
+
+    public function countdown(
+        Request $request,
+        Session $session,
+        GuestsRepository $guestsRepository,
+        CharactersRepository $charactersRepository,
+        ScriptsRepository $scriptsRepository,
+        ScenesRepository $scenesRepository,
+    ) {
+
+        // ゲストIDを取得
+        $guestId = $session->get('guest_id');
+
+        // ゲストを取得
+        $guest = $guestsRepository->findOneBy([
+            'guest_id' => $guestId,
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターを取得
+        $character = $charactersRepository->findOneBy([
+            'character_id' => $guest->getCharacterId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターの戯曲を取得
+        $script = $scriptsRepository->findOneBy([
+            'script_id' => $character->getScriptId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターがメインになっているシーン抽出
+        $scene = $scenesRepository->findOneBy([
+            'scene_id' => $guest->getSceneId(),
+            'valid_flag' => true,
+        ]);
+
+        return $this->render('countdown.html.twig',[
+            'script' => $script,
+            'scene' => $scene,
+        ]);
+    }
+
+    public function performance(
+        Request $request,
+        Session $session,
+        GuestsRepository $guestsRepository,
+    ) {
+        return $this->render('performance.html.twig',[]);
+    }
+
     public function characterPointAddition( $answer, $choicePoints, $guestPoints) {
 
         // 選択肢を分析して、キャラクターを分析する。

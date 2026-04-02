@@ -68,15 +68,27 @@
         </h2>
 
         <div class="text-start px-md-4">
-            <div class="summary-label">Guest Name</div>
-            <div class="summary-value">{{guest.getGuestName}}</div>
-
-            <div class="summary-label">Selected Deck</div>
-            <div class="summary-value">{{deck.getDeckName}}</div>
+            <div class="summary-label">Selected Character</div>
+            <div class="summary-value">{{character.getCharacterName}}</div>
 
             <p class="small mb-5 italic" style="color: rgba(230, 241, 255, 0.6); line-height: 1.8;">
-                {{deck.getDeckDescription}}
+                {{character.getCharacterDescription}}
             </p>
+
+            <div class="summary-label">Script</div>
+            <div class="summary-value">{{script.getScriptTitle}}</div>
+
+            <p class="small mb-5 italic" style="color: rgba(230, 241, 255, 0.6); line-height: 1.8;">
+                {{script.getScriptDescription}}
+            </p>
+
+            <div class="summary-label">Selected Scene</div>
+            <div class="summary-value">{{scene.getSceneName}}</div>
+
+            <p class="small mb-5 italic" style="color: rgba(230, 241, 255, 0.6); line-height: 1.8;">
+                {{scene.getSceneDescription}}
+            </p>
+
         </div>
 
         <div class="divider"></div>
@@ -85,16 +97,11 @@
             <p class="small mb-4" style="color: var(--accent-gold); font-style: italic;">
                 舞台の準備は整いました。
             </p>
-            <a href="{{ path('question') }}" class="btn btn-gold text-uppercase fw-bold">
-                Start
+            <a href="{{ path('countdown') }}" class="btn btn-gold text-uppercase fw-bold">
+                ステージへ移動する
             </a>
         </div>
 
-        <div class="mt-5">
-            <a href="" class="text-muted small text-decoration-none" style="opacity: 0.5;">
-                ← 選択し直す
-            </a>
-        </div>
     </div>
 </div>
 
