@@ -49,7 +49,7 @@ class OneDayOneSceneController extends AbstractController
     public function index(): Response
     {
 
-    //    return $this->render('index.html.twig',[]);
+       return $this->render('index.html.twig',[]);
     //    return $this->render('inputName.html.twig',[]);
     //    return $this->render('chooseDecks.html.twig',[]);
     //    return $this->render('checkDeckAndName.html.twig',[]);
