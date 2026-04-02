@@ -83,34 +83,19 @@
         <h2 class="display-5 fw-light mb-5"> ハムレット として、どの場面に立ちますか？</h2>
 
         <div class="row g-4 scene-grid justify-content-center">
-            {# {% for scene in scenes %} #}
-            <div class="col-md-6">
-                <a href="#" class="scene-card shadow-sm">
-                    <h3 class="scene-title">三幕一場「広場での決闘」</h3>
-                    <p class="scene-desc">
-                        どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。
-                    </p>
-                </a>
-            </div>
+            {% for scene in scenes %}
 
-            <div class="col-md-6">
-                <a href="#" class="scene-card shadow-sm">
-                    <h3 class="scene-title">三幕一場「広場での決闘」</h3>
-                    <p class="scene-desc">
-                        どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。
-                    </p>
-                </a>
-            </div>
-            
-            <div class="col-md-6">
-                <a href="#" class="scene-card shadow-sm">
-                    <h3 class="scene-title">三幕一場「広場での決闘」</h3>
-                    <p class="scene-desc">
-                        どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。
-                    </p>
-                </a>
-            </div>
-            {# {% endfor %} #}
+                <div class="col-md-6">
+                    <a href={{ path('scene_explanation', {'sceneId': scene.sceneId}) }} class="scene-card shadow-sm">
+                        <h3 class="scene-title">{{ scene.getSceneName }}</h3>
+                        <p class="scene-desc">
+                            {{ scene.getSceneDescription }}
+                        </p>
+                    </a>
+                </div>
+
+            {% endfor %}
+
         </div>
 
         <div class="mt-5">

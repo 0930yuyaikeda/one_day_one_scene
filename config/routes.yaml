@@ -15,9 +15,17 @@ check_deck_and_name:
   path: /check_deck_and_name
   controller: App\Controller\OneDayOneSceneController::checkDeckAndName
 
-question: 
+question:
   path: /question
   controller: App\Controller\OneDayOneSceneController::question
+
+result:
+  path: /result
+  controller: App\Controller\OneDayOneSceneController::result
+
+chooseScene:
+  path: /chooseScene
+  controller: App\Controller\OneDayOneSceneController::chooseScene
 
 
 # controllers:

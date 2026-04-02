@@ -15,6 +15,9 @@ use App\Entity\Guests;
 use App\Entity\Choices;
 use App\Entity\ChoicePoints;
 use App\Entity\GuestPoints;
+use App\Entity\Scripts;
+use App\Entity\Scene;
+use App\Entity\SceneEntryCharacters;
 
 // Repository
 use App\Repository\AdminsRepository;
@@ -25,6 +28,9 @@ use App\Repository\ChoicesRepository;
 use App\Repository\GuestPointsRepository;
 use App\Repository\ChoicePointsRepository;
 use App\Repository\CharactersRepository;
+use App\Repository\ScriptsRepository;
+use App\Repository\ScenesRepository;
+use App\Repository\SceneEntryCharactersRepository;
 
 // Form
 use App\Form\GuestType;
@@ -40,13 +46,10 @@ define('SELECTED_DECK', 'selectedDeck');
 
 class OneDayOneSceneController extends AbstractController
 {
-    /*===========
-    
-    ===========*/
     public function index(): Response
     {
 
-       return $this->render('index.html.twig',[]);
+    //    return $this->render('index.html.twig',[]);
     //    return $this->render('inputName.html.twig',[]);
     //    return $this->render('chooseDecks.html.twig',[]);
     //    return $this->render('checkDeckAndName.html.twig',[]);
@@ -54,6 +57,7 @@ class OneDayOneSceneController extends AbstractController
     //    return $this->render('result.html.twig',[]);
     //    return $this->render('scriptDescription.html.twig',[]);
     //    return $this->render('chooseScene.html.twig',[]);
+    //    return $this->render('checkBeforePerformance.html.twig',[]);
     //    return $this->render('countdown.html.twig',[]);
     //    return $this->render('performance.html.twig',[]);
     }
@@ -410,12 +414,107 @@ class OneDayOneSceneController extends AbstractController
 
             // キャラクター選択完了
 
+            // キャラクターIDをGuestに登録。
+            $guest->setCharacterId( $selectedCharacter->getCharacterId() );
 
+            // DBを更新
+            $guestsRepository->save($guest, true);
+
+            // キャラクター画面へ。
+            return $this->redirectToRoute('result');
         }
 
         return $this->render('question.html.twig',[
             'form' => $form->createView(),
             'questionJson' => $this->json($questions,)->getContent(),
+        ]);
+    }
+
+    public function result( Request $request, Session $session, GuestsRepository $guestsRepository, CharactersRepository $charactersRepository, ScriptsRepository $scriptsRepository) {
+
+        // ゲストIDを取得
+        $guestId = $session->get('guest_id');
+
+        // ゲストを取得
+        $guest = $guestsRepository->findOneBy([
+            'guest_id' => $guestId,
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターを取得
+        $character = $charactersRepository->findOneBy([
+            'character_id' => $guest->getCharacterId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターの戯曲を取得
+        $script = $scriptsRepository->findOneBy([
+            'script_id' => $character->getScriptId(),
+            'valid_flag' => true,
+        ]);
+
+        return $this->render('result.html.twig',[
+            'guest' => $guest,
+            'character' => $character,
+            'script' => $script,
+        ]);
+    }
+
+    public function chooseScene(
+        Request $request,
+        Session $session,
+        GuestsRepository $guestsRepository,
+        CharactersRepository $charactersRepository,
+        ScriptsRepository $scriptsRepository,
+        ScenesRepository $scenesRepository,
+        SceneEntryCharactersRepository $sceneEntryCharactersRepository,
+    ) {
+
+        // ゲストIDを取得
+        $guestId = $session->get('guest_id');
+
+        // ゲストを取得
+        $guest = $guestsRepository->findOneBy([
+            'guest_id' => $guestId,
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターを取得
+        $character = $charactersRepository->findOneBy([
+            'character_id' => $guest->getCharacterId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターの戯曲を取得
+        $script = $scriptsRepository->findOneBy([
+            'script_id' => $character->getScriptId(),
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターがメインになっているシーンを抽出
+        $sceneEntryCharacters = $sceneEntryCharactersRepository->findBy([
+            'character_id' => $character->getCharacterId(),
+            'main_character_flag' => true,
+            'valid_flag' => true,
+        ]);
+
+        // ゲストの選んだキャラクターがメインになっているシーンのID用の変数を宣言
+        $sceneIds = [];
+
+        // ゲストの選んだキャラクターがメインになっているシーンのIDを格納
+        foreach ( $sceneEntryCharacters as $sceneEntryCharacter ) {
+            $sceneIds[] = $sceneEntryCharacter->getSceneId();
+        }
+
+        // ゲストの選んだキャラクターがメインになっているシーン抽出
+        $scenes = $scenesRepository->findBy([
+            'scene_id' => $sceneIds,
+            'valid_flag' => true,
+        ]);
+
+        return $this->render('chooseScene.html.twig',[
+            'character' => $character,
+            'scenes' => $scenes,
         ]);
     }
 

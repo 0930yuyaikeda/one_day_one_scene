@@ -95,21 +95,33 @@
                 </div>
 
                 <div class="result-info">
-                    <h2 class="char-name-jp fw-bold">ハムレット</h2>
-                    <div class="char-name-en">HAMLET</div>
-                    
+                    <h2 class="char-name-jp fw-bold">{{character.getCharacterName}}</h2>
+                    <div class="char-name-en">{{character.getCharacterNameEnglish}}</div>
+
                     <div class="play-title-tag">
-                        script by HAMLET
+                        script by {{script.getScriptTitle}}
                     </div>
 
                     <div class="description-box">
+                        <p class="mb-2">
+                            About {{script.getScriptNameEnglish}}
+                        </p>
                         <p class="mb-0">
-                            どちらが雄雄しい態度だろう。闇区な運命の矢弾を心の中でひたすら耐え忍ぶか、艱難の海に刃を向け、それにとどめを刺すか。死ぬ、眠る。それだけのことだ。眠れば、心の痛みにも、肉体が受け継ぐ無数の苦しみにもケリがつく。それこそ願ってもない結末だ。死ぬ。眠る。眠れば夢を見る。そう、厄介なのはそこだ。人生のしがらみを振り捨てても死という眠りの中でどんな夢をみるかわからない。だから二の足を踏まずにいられない。それを考えるから辛い人生を長引かせてしまう。でなければ世間が鞭打つあざけりをいったい誰が耐えるだろう。
+                            {{script.getScriptDescription}}
+                        </p>
+                    </div>
+
+                    <div class="description-box">
+                        <p class="mb-2">
+                            About {{character.getCharacterNameEnglish}}
+                        </p>
+                        <p class="mb-0">
+                            {{character.getCharacterDescription}}
                         </p>
                     </div>
 
                     <div class="mt-5 d-grid gap-3 d-sm-flex justify-content-sm-center">
-                        <a href="" class="btn btn-outline-warning btn-action px-5 py-3 text-uppercase small" style="color: var(--accent-gold); border-color: var(--accent-gold);">
+                        <a href="{{ path('chooseScene') }}" class="btn btn-outline-warning btn-action px-5 py-3 text-uppercase small" style="color: var(--accent-gold); border-color: var(--accent-gold);">
                             Next
                         </a>
                     </div>
